@@ -13,6 +13,7 @@ import com.google.common.collect.Lists;
 
 import de.funding.funding.core.boot.DataProvider;
 import de.funding.funding.core.repository.ProjectRepository;
+import de.funding.funding.core.repository.SkillRepository;
 import de.funding.funding.core.repository.UserRepository;
 import de.funding.funding.entity.Location;
 import de.funding.funding.entity.Project;
@@ -26,6 +27,7 @@ import de.funding.funding.entity.UserType;
 @Service
 public class DemoDataProvider implements DataProvider {
 
+	private static final Integer SKILL_COUNT = 10;
 	private static final Integer USER_COUNT = 15;
 	private static final Integer PROJECT_COUNT = 30;
 
@@ -35,11 +37,21 @@ public class DemoDataProvider implements DataProvider {
 	@Autowired
 	private ProjectRepository projectRepo;
 
+	@Autowired
+	private SkillRepository skillRepo;
+
 	@Override
 	public void load() {
-		// TODO Skills
+		initializeSkillsData();
 		initializeUserData();
-		//		initializeProjectData();
+		// initializeProjectData();
+	}
+
+	private void initializeSkillsData() {
+		final DataFactory dataFactory = new DataFactory();
+		for (int i = 0; i < SKILL_COUNT; i++) {
+			skillRepo.add(new Skill(UUID.randomUUID(), dataFactory.getCity(), dataFactory.getRandomWord()));
+		}
 	}
 
 	private void initializeProjectData() {
@@ -47,10 +59,8 @@ public class DemoDataProvider implements DataProvider {
 		for (int i = 0; i < PROJECT_COUNT; i++) {
 			final Project project = new Project(UUID.randomUUID(), dataFactory.getBusinessName(),
 					dataFactory.getRandomText(50), dataFactory.getRandomText(250), getRandomProjectState(),
-					getRandomUser(),
-					LocalDateTime.now(), LocalDateTime.now(), getRandomLocation(), getRandomInvestmentGoal(),
-					getRandomSlots(),
-					getRandomSupporters());
+					getRandomUser(), LocalDateTime.now(), LocalDateTime.now(), getRandomLocation(),
+					getRandomInvestmentGoal(), getRandomSlots(), getRandomSupporters());
 			projectRepo.create(project);
 		}
 	}
@@ -106,10 +116,12 @@ public class DemoDataProvider implements DataProvider {
 	}
 
 	private List<Skill> getRandomSkills() {
-		final List<Skill> skills = Lists.newArrayList();
-
-		// TODO SkillRepo
-
-		return skills;
+		final List<Skill> allSkills = skillRepo.findAll();
+		final Random random = new Random();
+		final List<Skill> randomSkills = Lists.newArrayList();
+		for (int i = 0; i < random.nextInt(5); i++) {
+			randomSkills.add(allSkills.get(random.nextInt(allSkills.size())));
+		}
+		return randomSkills;
 	}
 }
