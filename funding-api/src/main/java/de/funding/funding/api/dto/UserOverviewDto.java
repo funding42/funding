@@ -49,11 +49,11 @@ public class UserOverviewDto {
     this.surname = surname;
   }
 
-  public User.Type getType() {
+  public UserDto.Type getType() {
     return type;
   }
 
-  public void setType(final User.Type type) {
+  public void setType(final UserDto.Type type) {
     this.type = type;
   }
 
