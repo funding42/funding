@@ -3,30 +3,26 @@ package de.funding.funding.api.dto;
 import de.funding.funding.entity.Skill;
 import de.funding.funding.entity.User;
 
-import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
-public class UserDto {
+public class UserOverviewDto {
   private UUID uuid;
   private String prename;
   private String surname;
   private User.Type type;
-  private List<Skill> skills;
-  private String description;
   private String avatarUrl;
 
-  public UserDto(final UUID uuid, final String prename, final String surname, final User.Type type, final List<Skill> skills, final String description, final String avatarUrl) {
+
+  public UserOverviewDto() {
+  }
+
+  public UserOverviewDto(final UUID uuid, final String prename, final String surname, final User.Type type, final String avatarUrl) {
     this.uuid = uuid;
     this.prename = prename;
     this.surname = surname;
     this.type = type;
-    this.skills = skills;
-    this.description = description;
     this.avatarUrl = avatarUrl;
-  }
-
-  public UserDto() {
   }
 
   public UUID getUuid() {
@@ -59,22 +55,6 @@ public class UserDto {
 
   public void setType(final User.Type type) {
     this.type = type;
-  }
-
-  public List<Skill> getSkills() {
-    return skills;
-  }
-
-  public void setSkills(final List<Skill> skills) {
-    this.skills = skills;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(final String description) {
-    this.description = description;
   }
 
   public String getAvatarUrl() {

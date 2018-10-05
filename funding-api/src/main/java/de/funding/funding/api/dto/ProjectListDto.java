@@ -12,8 +12,8 @@ public class ProjectListDto {
   private UUID uuid;
   private String title;
   private String teaser;
-  private Project.State state;
-  private User creator;
+  private State state;
+  private UserOverviewDto creator;
   private LocalDateTime createdAt;
   private LocalDateTime lastModified;
   private long numSupporters;
@@ -21,8 +21,8 @@ public class ProjectListDto {
   private double votes;
   private double percentUpvotes;
 
-  public ProjectListDto(final UUID uuid, final String title, final String teaser, final Project.State state,
-                        final User creator, final LocalDateTime createdAt, final LocalDateTime lastModified,
+  public ProjectListDto(final UUID uuid, final String title, final String teaser, final State state,
+                        final UserOverviewDto creator, final LocalDateTime createdAt, final LocalDateTime lastModified,
                         final long numSupporters, final double score, final double votes,
                         final double percentUpvotes) {
     this.uuid = uuid;
@@ -65,19 +65,19 @@ public class ProjectListDto {
     this.teaser = teaser;
   }
 
-  public Project.State getState() {
+  public State getState() {
     return state;
   }
 
-  public void setState(final Project.State state) {
+  public void setState(final State state) {
     this.state = state;
   }
 
-  public User getCreator() {
+  public UserOverviewDto getCreator() {
     return creator;
   }
 
-  public void setCreator(final User creator) {
+  public void setCreator(final UserOverviewDto creator) {
     this.creator = creator;
   }
 
