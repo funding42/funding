@@ -24,6 +24,7 @@
         <module>funding-core</module>
         <module>funding-data-jpa</module>
         <module>funding-api</module>
+        <module>funding-web</module>
     </modules>
 
     <properties>
@@ -42,12 +43,4 @@
         </dependencies>
     </dependencyManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>

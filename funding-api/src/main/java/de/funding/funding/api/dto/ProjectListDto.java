@@ -4,11 +4,12 @@ import de.funding.funding.entity.Project;
 import de.funding.funding.entity.User;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class ProjectListDto {
   public enum State {New, Accepted, Validated}
 
-
+  private UUID uuid;
   private String title;
   private String teaser;
   private Project.State state;
@@ -20,10 +21,11 @@ public class ProjectListDto {
   private double votes;
   private double percentUpvotes;
 
-  public ProjectListDto(final String title, final String teaser, final Project.State state,
-      final User creator, final LocalDateTime createdAt, final LocalDateTime lastModified,
-      final long numSupporters, final double score, final double votes,
-      final double percentUpvotes) {
+  public ProjectListDto(final UUID uuid, final String title, final String teaser, final Project.State state,
+                        final User creator, final LocalDateTime createdAt, final LocalDateTime lastModified,
+                        final long numSupporters, final double score, final double votes,
+                        final double percentUpvotes) {
+    this.uuid = uuid;
     this.title = title;
     this.teaser = teaser;
     this.state = state;
@@ -37,6 +39,14 @@ public class ProjectListDto {
   }
 
   public ProjectListDto() {
+  }
+
+  public UUID getUuid() {
+    return uuid;
+  }
+
+  public void setUuid(final UUID uuid) {
+    this.uuid = uuid;
   }
 
   public String getTitle() {

@@ -9,7 +9,7 @@ import java.util.UUID;
 @RestController("/api/v1/user")
 public class UserController {
 
-  @GetMapping("/{uuid}")
+  @GetMapping("/api/v1/user/{uuid}")
   public UserDto getUser(UUID uuid) {
     throw new UnsupportedOperationException();
   }

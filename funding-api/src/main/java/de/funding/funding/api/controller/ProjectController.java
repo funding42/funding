@@ -13,12 +13,12 @@ public class ProjectController {
 
   public enum SortBy {CreationDate, ModifiedDate, Trending, Popular}
 
-  @GetMapping("/{uuid}")
+  @GetMapping("/api/v1/project/{uuid}")
   public ProjectDto getProject(UUID uuid) {
     throw new UnsupportedOperationException();
   }
 
-  @GetMapping("/")
+  @GetMapping("/api/v1/project")
   public List<ProjectListDto> getProjects(Long offset, Long limit, SortBy sortBy, Boolean asc) {
     throw new UnsupportedOperationException();
   }

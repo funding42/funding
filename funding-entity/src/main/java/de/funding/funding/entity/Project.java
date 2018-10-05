@@ -1,9 +1,11 @@
 package de.funding.funding.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Project {
   public enum State {New, Accepted, Validated}
+  private UUID uuid;
   private String title;
   private String teaser;
   private String description;
@@ -12,7 +14,8 @@ public class Project {
   private LocalDateTime createdAt;
   private LocalDateTime lastModified;
 
-  public Project(final String title, final String teaser, final String description, final State state, final User creator, final LocalDateTime createdAt, final LocalDateTime lastModified) {
+  public Project(final UUID uuid, final String title, final String teaser, final String description, final State state, final User creator, final LocalDateTime createdAt, final LocalDateTime lastModified) {
+    this.uuid = uuid;
     this.title = title;
     this.teaser = teaser;
     this.description = description;
@@ -23,6 +26,14 @@ public class Project {
   }
 
   public Project() {
+  }
+
+  public UUID getUuid() {
+    return uuid;
+  }
+
+  public void setUuid(final UUID uuid) {
+    this.uuid = uuid;
   }
 
   public String getTitle() {

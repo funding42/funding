@@ -1,26 +1,25 @@
 package de.funding.funding.api.dto;
 
-import de.funding.funding.datatypes.Project;
-import de.funding.funding.datatypes.Supporter;
-import de.funding.funding.datatypes.User;
-
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public class ProjectDto {
   public enum State {New, Accepted, Validated}
+  private UUID uuid;
   private String title;
   private String teaser;
   private String description;
-  private Project.State state;
-  private User creator;
+  private State state;
+  private UserDto creator;
   private LocalDateTime createdAt;
   private LocalDateTime lastModified;
-  private List<Supporter> supporters;
+  private List<SupporterDto> supporters;
   private double votes;
   private double percentUpvotes;
 
-  public ProjectDto(final String title, final String teaser, final String description, final Project.State state, final User creator, final LocalDateTime createdAt, final LocalDateTime lastModified, final List<Supporter> supporters, final double votes, final double percentUpvotes) {
+  public ProjectDto(final UUID uuid, final String title, final String teaser, final String description, final State state, final UserDto creator, final LocalDateTime createdAt, final LocalDateTime lastModified, final List<SupporterDto> supporters, final double votes, final double percentUpvotes) {
+    this.uuid = uuid;
     this.title = title;
     this.teaser = teaser;
     this.description = description;
@@ -36,12 +35,12 @@ public class ProjectDto {
   public ProjectDto() {
   }
 
-  public double getPercentUpvotes() {
-    return percentUpvotes;
+  public UUID getUuid() {
+    return uuid;
   }
 
-  public void setPercentUpvotes(final double percentUpvotes) {
-    this.percentUpvotes = percentUpvotes;
+  public void setUuid(final UUID uuid) {
+    this.uuid = uuid;
   }
 
   public String getTitle() {
@@ -68,19 +67,19 @@ public class ProjectDto {
     this.description = description;
   }
 
-  public Project.State getState() {
+  public State getState() {
     return state;
   }
 
-  public void setState(final Project.State state) {
+  public void setState(final State state) {
     this.state = state;
   }
 
-  public User getCreator() {
+  public UserDto getCreator() {
     return creator;
   }
 
-  public void setCreator(final User creator) {
+  public void setCreator(final UserDto creator) {
     this.creator = creator;
   }
 
@@ -100,11 +99,11 @@ public class ProjectDto {
     this.lastModified = lastModified;
   }
 
-  public List<Supporter> getSupporters() {
+  public List<SupporterDto> getSupporters() {
     return supporters;
   }
 
-  public void setSupporters(final List<Supporter> supporters) {
+  public void setSupporters(final List<SupporterDto> supporters) {
     this.supporters = supporters;
   }
 
@@ -114,5 +113,13 @@ public class ProjectDto {
 
   public void setVotes(final double votes) {
     this.votes = votes;
+  }
+
+  public double getPercentUpvotes() {
+    return percentUpvotes;
+  }
+
+  public void setPercentUpvotes(final double percentUpvotes) {
+    this.percentUpvotes = percentUpvotes;
   }
 }

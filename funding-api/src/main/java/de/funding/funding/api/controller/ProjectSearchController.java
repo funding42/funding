@@ -11,7 +11,7 @@ public class ProjectSearchController {
 
   public enum SortBy {CreationDate, ModifiedDate, Trending, Popular}
 
-  @GetMapping("/")
+  @GetMapping("/api/v1/search/projects")
   public List<ProjectListDto> searchByTitle(String title, Long offset, Long limit, SortBy sortBy, Boolean asc) {
     throw new UnsupportedOperationException();
   }
