@@ -8,15 +8,16 @@ import java.util.List;
 import java.util.UUID;
 
 public class UserDto {
+  public enum Type {Citizen, Commercial, PublicInstitution}
   private UUID uuid;
   private String prename;
   private String surname;
-  private User.Type type;
+  private Type type;
   private List<Skill> skills;
   private String description;
   private String avatarUrl;
 
-  public UserDto(final UUID uuid, final String prename, final String surname, final User.Type type, final List<Skill> skills, final String description, final String avatarUrl) {
+  public UserDto(final UUID uuid, final String prename, final String surname, final Type type, final List<Skill> skills, final String description, final String avatarUrl) {
     this.uuid = uuid;
     this.prename = prename;
     this.surname = surname;
@@ -53,11 +54,11 @@ public class UserDto {
     this.surname = surname;
   }
 
-  public User.Type getType() {
+  public Type getType() {
     return type;
   }
 
-  public void setType(final User.Type type) {
+  public void setType(final Type type) {
     this.type = type;
   }
 
