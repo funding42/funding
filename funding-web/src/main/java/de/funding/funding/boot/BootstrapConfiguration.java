@@ -1,6 +1,6 @@
-package de.funding.funding.bootstrap;
+package de.funding.funding.boot;
 
-import de.funding.funding.core.bootstrap.InitialDataProvider;
+import de.funding.funding.core.boot.DataProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;
@@ -11,15 +11,15 @@ import java.util.List;
 @Configuration
 public class BootstrapConfiguration {
 
+  private final List<DataProvider> providers;
+
   @Autowired(required = false)
-  private List<InitialDataProvider> providers;
+  public BootstrapConfiguration(final List<DataProvider> providers) {
+    this.providers = providers;
+  }
 
   @EventListener(ApplicationReadyEvent.class)
-  public void executeDataProviders() {
-    if(providers != null) {
-      for(InitialDataProvider provider: providers) {
-        provider.loadData();
-      }
-    }
+  public void init() {
+    providers.forEach(DataProvider::load);
   }
 }

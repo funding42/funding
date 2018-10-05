@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Skill")
+@Table(name = "FUN_Skill")
 public class PersistentSkill extends AbstractPersistentEntity {
 
   private String name;
