@@ -10,14 +10,14 @@ public class UserOverviewDto {
   private UUID uuid;
   private String prename;
   private String surname;
-  private User.Type type;
+  private UserDto.Type type;
   private String avatarUrl;
 
 
   public UserOverviewDto() {
   }
 
-  public UserOverviewDto(final UUID uuid, final String prename, final String surname, final User.Type type, final String avatarUrl) {
+  public UserOverviewDto(final UUID uuid, final String prename, final String surname, final UserDto.Type type, final String avatarUrl) {
     this.uuid = uuid;
     this.prename = prename;
     this.surname = surname;
