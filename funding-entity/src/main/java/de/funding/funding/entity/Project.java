@@ -14,7 +14,7 @@ public class Project {
 	private LocalDateTime createdAt;
 	private LocalDateTime lastModified;
 	private Location location;
-	private double investmentGoal;
+	private Double investmentGoal;
 	private List<SlotSupporter> slots;
 
 	public Project() {
@@ -22,7 +22,7 @@ public class Project {
 
 	public Project(final UUID uuid, final String title, final String teaser, final String description,
 			final ProjectState state, final User creator, final LocalDateTime createdAt,
-			final LocalDateTime lastModified, final Location location, final double investmentGoal,
+			final LocalDateTime lastModified, final Location location, final Double investmentGoal,
 			final List<SlotSupporter> slots) {
 		super();
 		this.uuid = uuid;
@@ -110,11 +110,11 @@ public class Project {
 		this.location = location;
 	}
 
-	public double getInvestmentGoal() {
+	public Double getInvestmentGoal() {
 		return investmentGoal;
 	}
 
-	public void setInvestmentGoal(final double investmentGoal) {
+	public void setInvestmentGoal(final Double investmentGoal) {
 		this.investmentGoal = investmentGoal;
 	}
 
