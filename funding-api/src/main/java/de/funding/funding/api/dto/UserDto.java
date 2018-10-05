@@ -11,11 +11,11 @@ public class UserDto {
 	private String prename;
 	private String surname;
 	private Type type;
-	private List<Skill> skills;
+	private List<String> skills;
 	private String description;
 	private String avatarUrl;
 
-	public UserDto(final UUID uuid, final String prename, final String surname, final Type type, final List<Skill> skills, final String description, final String avatarUrl) {
+	public UserDto(final UUID uuid, final String prename, final String surname, final Type type, final List<String> skills, final String description, final String avatarUrl) {
 		this.uuid = uuid;
 		this.prename = prename;
 		this.surname = surname;
@@ -60,11 +60,11 @@ public class UserDto {
 		this.type = type;
 	}
 
-	public List<Skill> getSkills() {
+	public List<String> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(final List<Skill> skills) {
+	public void setSkills(final List<String> skills) {
 		this.skills = skills;
 	}
 

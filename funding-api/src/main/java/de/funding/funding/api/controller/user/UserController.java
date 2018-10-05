@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 @RestController
@@ -14,6 +15,7 @@ public class UserController {
 
   @GetMapping("/{uuid}")
   public UserDto getUser(@PathVariable("uuid") final UUID uuid) {
-    throw new UnsupportedOperationException();
+    UserDto userDto = new UserDto(UUID.randomUUID(), "Vorname", "Nachname", UserDto.Type.Citizen, Arrays.asList("handarbeit"), "Meine Beschreibung", null);
+    return userDto;
   }
 }
