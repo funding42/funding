@@ -4,50 +4,64 @@ import java.util.List;
 import java.util.UUID;
 
 public class Supporter {
-  private UUID uuid;
-  private User user;
-  private List<Skill> skills;
-  private Double amountInvested;
+	private UUID uuid;
+	private User user;
+	private List<Skill> skills;
+	private Double amountInvested;
+	private Boolean fillsSlot;
 
-  public Supporter(final UUID uuid, final User user, final List<Skill> skills, final Double amountInvested) {
-    this.uuid = uuid;
-    this.user = user;
-    this.skills = skills;
-    this.amountInvested = amountInvested;
-  }
+	public Supporter() {
+	}
 
-  public UUID getUuid() {
-    return uuid;
-  }
+	public Supporter(final UUID uuid, final User user, final List<Skill> skills, final Double amountInvested,
+			final Boolean fillsSlot) {
+		super();
+		this.uuid = uuid;
+		this.user = user;
+		this.skills = skills;
+		this.amountInvested = amountInvested;
+		this.fillsSlot = fillsSlot;
+	}
 
-  public void setUuid(final UUID uuid) {
-    this.uuid = uuid;
-  }
+	public UUID getUuid() {
+		return uuid;
+	}
 
-  public List<Skill> getSkills() {
-    return skills;
-  }
+	public void setUuid(final UUID uuid) {
+		this.uuid = uuid;
+	}
 
-  public void setSkills(final List<Skill> skills) {
-    this.skills = skills;
-  }
+	public User getUser() {
+		return user;
+	}
 
-  public Double getAmountInvested() {
-    return amountInvested;
-  }
+	public void setUser(final User user) {
+		this.user = user;
+	}
 
-  public void setAmountInvested(final Double amountInvested) {
-    this.amountInvested = amountInvested;
-  }
+	public List<Skill> getSkills() {
+		return skills;
+	}
 
-  public Supporter() {
-  }
+	public void setSkills(final List<Skill> skills) {
+		this.skills = skills;
+	}
 
-  public User getUser() {
-    return user;
-  }
+	public Double getAmountInvested() {
+		return amountInvested;
+	}
 
-  public void setUser(final User user) {
-    this.user = user;
-  }
+	public void setAmountInvested(final Double amountInvested) {
+		this.amountInvested = amountInvested;
+	}
+
+	public Boolean getFillsSlot() {
+		return fillsSlot;
+	}
+
+	public void setFillsSlot(final Boolean fillsSlot) {
+		this.fillsSlot = fillsSlot;
+	}
+
+
 }

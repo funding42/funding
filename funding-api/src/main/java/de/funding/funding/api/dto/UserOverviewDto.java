@@ -1,9 +1,5 @@
 package de.funding.funding.api.dto;
 
-import de.funding.funding.entity.Skill;
-import de.funding.funding.entity.User;
-
-import java.util.List;
 import java.util.UUID;
 
 public class UserOverviewDto {
