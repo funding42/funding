@@ -5,6 +5,6 @@ import de.funding.funding.entity.Project;
 import java.util.UUID;
 
 public interface ProjectRepository {
-  Project getProject(UUID uuid);
 
+  Project getProject(UUID uuid);
 }
