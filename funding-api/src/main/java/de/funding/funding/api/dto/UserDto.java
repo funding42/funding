@@ -1,7 +1,7 @@
 package de.funding.funding.api.dto;
 
-import de.funding.funding.datatypes.Skill;
-import de.funding.funding.datatypes.User;
+import de.funding.funding.entity.Skill;
+import de.funding.funding.entity.User;
 
 import java.net.URL;
 import java.util.List;

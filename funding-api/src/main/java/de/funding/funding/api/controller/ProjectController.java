@@ -1,8 +1,7 @@
-package de.funding.funding.api;
+package de.funding.funding.api.controller;
 
 import de.funding.funding.api.dto.ProjectDto;
 import de.funding.funding.api.dto.ProjectListDto;
-import de.funding.funding.datatypes.Project;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +22,4 @@ public class ProjectController {
   public List<ProjectListDto> getProjects(Long offset, Long limit, SortBy sortBy, Boolean asc) {
     throw new UnsupportedOperationException();
   }
-
-
-
 }

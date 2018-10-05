@@ -1,7 +1,6 @@
-package de.funding.funding.datatypes;
+package de.funding.funding.entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class Project {
   public enum State {New, Accepted, Validated}

@@ -1,4 +1,4 @@
-package de.funding.funding.datatypes;
+package de.funding.funding.entity;
 
 import java.util.List;
 

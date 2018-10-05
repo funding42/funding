@@ -1,11 +1,9 @@
-package de.funding.funding.api;
+package de.funding.funding.api.controller;
 
 import de.funding.funding.api.dto.UserDto;
-import de.funding.funding.datatypes.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController("/api/v1/user")

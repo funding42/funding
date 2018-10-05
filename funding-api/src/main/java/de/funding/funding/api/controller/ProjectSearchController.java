@@ -1,4 +1,4 @@
-package de.funding.funding.api;
+package de.funding.funding.api.controller;
 
 import de.funding.funding.api.dto.ProjectListDto;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,5 +15,4 @@ public class ProjectSearchController {
   public List<ProjectListDto> searchByTitle(String title, Long offset, Long limit, SortBy sortBy, Boolean asc) {
     throw new UnsupportedOperationException();
   }
-
 }
