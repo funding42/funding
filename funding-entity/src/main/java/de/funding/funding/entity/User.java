@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.UUID;
 
 public class User {
-  public enum Type {Citizen, Commercial, PublicInstitution}
   private UUID uuid;
   private String prename;
   private String surname;
-  private Type type;
+  private UserType type;
   private List<Skill> skills;
   private String description;
 
-  public User(final UUID uuid, final String prename, final String surname, final Type type, final List<Skill> skills, final String description) {
+  public User(final UUID uuid, final String prename, final String surname, final UserType type,
+      final List<Skill> skills, final String description) {
     this.uuid = uuid;
     this.prename = prename;
     this.surname = surname;
@@ -37,7 +37,7 @@ public class User {
     this.surname = surname;
   }
 
-  public void setType(final Type type) {
+  public void setType(final UserType type) {
     this.type = type;
   }
 
@@ -57,7 +57,7 @@ public class User {
     return surname;
   }
 
-  public Type getType() {
+  public UserType getType() {
     return type;
   }
 

@@ -4,17 +4,16 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Project {
-  public enum State {New, Accepted, Validated}
   private UUID uuid;
   private String title;
   private String teaser;
   private String description;
-  private State state;
+  private ProjectState state;
   private User creator;
   private LocalDateTime createdAt;
   private LocalDateTime lastModified;
 
-  public Project(final UUID uuid, final String title, final String teaser, final String description, final State state, final User creator, final LocalDateTime createdAt, final LocalDateTime lastModified) {
+  public Project(final UUID uuid, final String title, final String teaser, final String description, final ProjectState state, final User creator, final LocalDateTime createdAt, final LocalDateTime lastModified) {
     this.uuid = uuid;
     this.title = title;
     this.teaser = teaser;
@@ -60,11 +59,11 @@ public class Project {
     this.description = description;
   }
 
-  public State getState() {
+  public ProjectState getState() {
     return state;
   }
 
-  public void setState(final State state) {
+  public void setState(final ProjectState state) {
     this.state = state;
   }
 
