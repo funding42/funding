@@ -6,15 +6,12 @@ public class SupporterDto {
 	private UserOverviewDto user;
 	private List<String> skills;
 	private Double amountInvested;
-	private Boolean fillsSlot;
 
-	public SupporterDto(final UserOverviewDto user, final List<String> skills, final Double amountInvested,
-			final Boolean fillsSlot) {
+	public SupporterDto(final UserOverviewDto user, final List<String> skills, final Double amountInvested) {
 		super();
 		this.user = user;
 		this.skills = skills;
 		this.amountInvested = amountInvested;
-		this.fillsSlot = fillsSlot;
 	}
 
 	public UserOverviewDto getUser() {
@@ -39,14 +36,6 @@ public class SupporterDto {
 
 	public void setAmountInvested(final Double amountInvested) {
 		this.amountInvested = amountInvested;
-	}
-
-	public Boolean getFillsSlot() {
-		return fillsSlot;
-	}
-
-	public void setFillsSlot(final Boolean fillsSlot) {
-		this.fillsSlot = fillsSlot;
 	}
 
 }

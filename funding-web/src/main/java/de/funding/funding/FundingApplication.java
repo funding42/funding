@@ -1,9 +1,13 @@
 package de.funding.funding;
 
+import de.funding.funding.core.repository.VoteRepository;
+import de.funding.funding.core.service.VoteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,6 +29,9 @@ public class FundingApplication {
   public static void main(String[] args) {
     SpringApplication.run(FundingApplication.class, args);
   }
+
+  @Autowired
+  private VoteRepository voteRepository;
 
   @Bean
   public Docket petApi() {
@@ -51,9 +58,16 @@ public class FundingApplication {
               .and()
               .httpBasic();
     }
+  }
 
+  @Bean
+  public DefaultConversionService defaultConversionService() {
+    return new DefaultConversionService();
+  }
 
-
+  @Bean
+  public VoteService voteService() {
+    return new VoteService(voteRepository);
   }
 
   @Configuration

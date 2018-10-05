@@ -15,6 +15,7 @@ public class ProjectDto {
 	private LocalDateTime createdAt;
 	private LocalDateTime lastModified;
 	private List<SupporterDto> supporters;
+	private List<SlotDto> slots;
 	private double votes;
 	private double percentUpvotes;
 	private double investmentGoal;
@@ -25,9 +26,9 @@ public class ProjectDto {
 	}
 
 	public ProjectDto(final UUID uuid, final String title, final String teaser, final String description,
-			final State state, final UserDto creator, final LocalDateTime createdAt, final LocalDateTime lastModified,
-			final List<SupporterDto> supporters, final double votes, final double percentUpvotes,
-			final double investmentGoal, final double investmentProgress, final String teaserPictureUrl) {
+										final State state, final UserDto creator, final LocalDateTime createdAt, final LocalDateTime lastModified,
+										final List<SupporterDto> supporters, final List<SlotDto> slots, final double votes, final double percentUpvotes,
+										final double investmentGoal, final double investmentProgress, final String teaserPictureUrl) {
 		super();
 		this.uuid = uuid;
 		this.title = title;
@@ -38,11 +39,20 @@ public class ProjectDto {
 		this.createdAt = createdAt;
 		this.lastModified = lastModified;
 		this.supporters = supporters;
+		this.slots = slots;
 		this.votes = votes;
 		this.percentUpvotes = percentUpvotes;
 		this.investmentGoal = investmentGoal;
 		this.investmentProgress = investmentProgress;
 		this.teaserPictureUrl = teaserPictureUrl;
+	}
+
+	public List<SlotDto> getSlots() {
+		return slots;
+	}
+
+	public void setSlots(final List<SlotDto> slots) {
+		this.slots = slots;
 	}
 
 	public UUID getUuid() {

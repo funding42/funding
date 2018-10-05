@@ -4,12 +4,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class ProjectListDto {
-	public enum State {New, Accepted, Validated}
 
 	private UUID uuid;
 	private String title;
 	private String teaser;
-	private State state;
+	private ProjectDto.State state;
 	private UserOverviewDto creator;
 	private LocalDateTime createdAt;
 	private LocalDateTime lastModified;
@@ -22,7 +21,7 @@ public class ProjectListDto {
 	public ProjectListDto() {
 	}
 
-	public ProjectListDto(final UUID uuid, final String title, final String teaser, final State state,
+	public ProjectListDto(final UUID uuid, final String title, final String teaser, final ProjectDto.State state,
 			final UserOverviewDto creator, final LocalDateTime createdAt, final LocalDateTime lastModified,
 			final long numSupporters, final double score, final double votes, final double percentUpvotes,
 			final String teaserPictureUrl) {
@@ -65,11 +64,11 @@ public class ProjectListDto {
 		this.teaser = teaser;
 	}
 
-	public State getState() {
+	public ProjectDto.State getState() {
 		return state;
 	}
 
-	public void setState(final State state) {
+	public void setState(final ProjectDto.State state) {
 		this.state = state;
 	}
 
