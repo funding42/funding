@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -47,6 +48,14 @@ public class FundingApplication {
               .and()
               .httpBasic();
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+      registry.addMapping("/**")
+              .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
+              .allowedOrigins("*");
+    }
+
   }
 
 }
