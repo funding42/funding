@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -35,16 +34,11 @@ public class FundingApplication {
 
   @Bean
   public Docket petApi() {
-    return new Docket(DocumentationType.SWAGGER_2)
-            .select()
-            .apis(RequestHandlerSelectors.any())
-            .paths(PathSelectors.any())
-            .build()
-            .pathMapping("/")
-            .genericModelSubstitutes(ResponseEntity.class)
-            .useDefaultResponseMessages(false)
-            //.enableUrlTemplating(true)
-            ;
+    return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+        .paths(PathSelectors.any()).build().pathMapping("/")
+        .genericModelSubstitutes(ResponseEntity.class).useDefaultResponseMessages(false)
+        //.enableUrlTemplating(true)
+        ;
   }
 
 
@@ -53,10 +47,7 @@ public class FundingApplication {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-      http
-              .anonymous()
-              .and()
-              .httpBasic();
+      http.anonymous().and().httpBasic();
     }
   }
 
@@ -76,7 +67,8 @@ public class FundingApplication {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-      registry.addMapping("/**").allowedOrigins("localhost", "localhost:8080", "*").allowCredentials(true).allowedMethods("GET", "OPTIONS", "POST", "PUT");
+      registry.addMapping("/**").allowedOrigins("localhost", "localhost:8080", "*")
+          .allowCredentials(true).allowedMethods("GET", "OPTIONS", "POST", "PUT");
     }
   }
 

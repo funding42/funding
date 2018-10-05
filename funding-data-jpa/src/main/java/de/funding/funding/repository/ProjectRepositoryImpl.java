@@ -40,11 +40,13 @@ public class ProjectRepositoryImpl implements ProjectRepository {
   }
 
   @Override
-  public List<Project> getProjects(final Long offset, final Long limit, final SortBy sortBy, final Boolean asc) {
+  public List<Project> getProjects(final Long offset, final Long limit, final SortBy sortBy,
+      final Boolean asc) {
 
     Pageable pageable = getPageable(offset, limit, sortBy, asc);
 
-    return delegator.findAll(pageable).map(persistentProjectToProjectConverter::convert).getContent();
+    return delegator.findAll(pageable).map(persistentProjectToProjectConverter::convert)
+        .getContent();
   }
 
   @Override
@@ -53,12 +55,14 @@ public class ProjectRepositoryImpl implements ProjectRepository {
   }
 
   @Override
-  public List<Project> searchByTitle(final String title, final Long offset, final Long limit, final SortBy sortBy, final Boolean asc) {
+  public List<Project> searchByTitle(final String title, final Long offset, final Long limit,
+      final SortBy sortBy, final Boolean asc) {
     Pageable pageable = getPageable(offset, limit, sortBy, asc);
 
-    String titleSearch = "%"+title+"%";
+    String titleSearch = "%" + title + "%";
 
-    return delegator.findAllByTitleLike(titleSearch, pageable).map(persistentProjectToProjectConverter::convert).getContent();
+    return delegator.findAllByTitleLike(titleSearch, pageable)
+        .map(persistentProjectToProjectConverter::convert).getContent();
   }
 
   private Pageable getPageable(Long offset, Long limit, final SortBy sortBy, final Boolean asc) {
@@ -83,7 +87,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         default:
           throw new UnsupportedOperationException("unknown sortby: " + sortBy);
       }
-      Sort sort = new Sort(asc == null || asc ? Sort.Direction.ASC : Sort.Direction.DESC, fieldName);
+      Sort sort =
+          new Sort(asc == null || asc ? Sort.Direction.ASC : Sort.Direction.DESC, fieldName);
       pageable = new OffsetBasedPageRequest(offset, limit.intValue(), sort);
     } else {
       pageable = new OffsetBasedPageRequest(offset, limit.intValue());
