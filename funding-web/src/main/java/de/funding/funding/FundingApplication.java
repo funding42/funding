@@ -3,11 +3,15 @@ package de.funding.funding;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -43,19 +47,23 @@ public class FundingApplication {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       http
-              .authorizeRequests()
-              .anyRequest().authenticated()
+              .anonymous()
               .and()
               .httpBasic();
     }
 
+
+
+  }
+
+  @Configuration
+  @EnableWebMvc
+  public class WebConfig implements WebMvcConfigurer {
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-      registry.addMapping("/**")
-              .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
-              .allowedOrigins("*");
+      registry.addMapping("/**").allowedOrigins("localhost", "localhost:8080", "*").allowCredentials(true).allowedMethods("GET", "OPTIONS", "POST", "PUT");
     }
-
   }
 
 }
