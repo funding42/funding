@@ -1,6 +1,7 @@
 package de.funding.funding.repository;
 
 import de.funding.funding.converter.PersistentSkillToSkillConverter;
+import de.funding.funding.converter.SkillToPersistentSkillConverter;
 import de.funding.funding.core.repository.SkillRepository;
 import de.funding.funding.entity.PersistentSkill;
 import de.funding.funding.entity.Skill;
@@ -19,6 +20,9 @@ public class SkillRepositoryImpl implements SkillRepository {
   @Autowired
   private PersistentSkillToSkillConverter persistentSkillToSkillConverter;
 
+  @Autowired
+  private SkillToPersistentSkillConverter skillToPersistentSkillConverter;
+
   @Override
   public List<Skill> findAll() {
     return delegate.findAll().stream().map(persistentSkillToSkillConverter::convert)
@@ -27,10 +31,7 @@ public class SkillRepositoryImpl implements SkillRepository {
 
   @Override
   public void add(final Skill skill) {
-    final PersistentSkill entity = new PersistentSkill();
-    entity.setId(skill.getUuid());
-    entity.setName(skill.getName());
-    entity.setDescription(skill.getDescription());
+    final PersistentSkill entity = skillToPersistentSkillConverter.convert(skill);
     delegate.save(entity);
   }
 }

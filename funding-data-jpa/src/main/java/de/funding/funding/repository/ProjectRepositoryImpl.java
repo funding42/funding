@@ -1,21 +1,19 @@
 package de.funding.funding.repository;
 
-import java.net.URI;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
-
+import de.funding.funding.converter.PersistentProjectToProjectConverter;
+import de.funding.funding.converter.ProjectToPersistentProjectConverter;
+import de.funding.funding.core.repository.ProjectRepository;
+import de.funding.funding.entity.PersistentProject;
+import de.funding.funding.entity.Project;
 import de.funding.funding.util.OffsetBasedPageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import de.funding.funding.converter.PersistentProjectToProjectConverter;
-import de.funding.funding.converter.ProjectToPersistentProjectConverter;
-import de.funding.funding.core.repository.ProjectRepository;
-import de.funding.funding.entity.PersistentProject;
-import de.funding.funding.entity.Project;
+import java.net.URI;
+import java.util.List;
+import java.util.UUID;
 
 @Component
 public class ProjectRepositoryImpl implements ProjectRepository {
@@ -31,10 +29,9 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
   @Override
   public void create(final Project project) {
-    final PersistentProject persistentProject = projectToPersistentProjectConverter.convert(project);
-    persistentProject.setCreatedAt(LocalDateTime.now());
-    persistentProject.setUpdatedAt(LocalDateTime.now());
-    delegator.saveAndFlush(persistentProject);
+    final PersistentProject persistentProject =
+        projectToPersistentProjectConverter.convert(project);
+    delegator.save(persistentProject);
   }
 
   @Override

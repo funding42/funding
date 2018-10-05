@@ -15,8 +15,6 @@ public class SkillToPersistentSkillConverter implements Converter<Skill, Persist
 		target.setDescription(source.getDescription());
 		target.setId(source.getUuid());
 		target.setName(source.getName());
-
 		return target;
 	}
-
 }

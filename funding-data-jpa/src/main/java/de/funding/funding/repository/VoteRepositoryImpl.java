@@ -2,6 +2,7 @@ package de.funding.funding.repository;
 
 import de.funding.funding.converter.ProjectToPersistentProjectConverter;
 import de.funding.funding.converter.UserToPersistentConverter;
+import de.funding.funding.converter.VoteToPersistentVoteConverter;
 import de.funding.funding.core.repository.VoteRepository;
 import de.funding.funding.entity.PersistentProject;
 import de.funding.funding.entity.PersistentVote;
@@ -27,12 +28,12 @@ public class VoteRepositoryImpl implements VoteRepository {
   @Autowired
   private UserToPersistentConverter userToPersistentConverter;
 
+  @Autowired
+  private VoteToPersistentVoteConverter voteToPersistentVoteConverter;
+
   @Override
   public void add(final Vote vote) {
-    PersistentVote entity = new PersistentVote();
-    entity.setId(vote.getUuid());
-    entity.setProject(projectToPersistentProjectConverter.convert(vote.getProject()));
-    entity.setUser(userToPersistentConverter.convert(vote.getUser()));
+    PersistentVote entity = voteToPersistentVoteConverter.convert(vote);
     delegate.save(entity);
   }
 

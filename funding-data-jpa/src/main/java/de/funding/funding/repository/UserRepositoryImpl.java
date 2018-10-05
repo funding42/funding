@@ -29,7 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
   @Override
   public void createUser(final User user) {
     final PersistentUser persistentUser = userToPersistentConverter.convert(user);
-    delegator.saveAndFlush(persistentUser);
+    delegator.save(persistentUser);
   }
 
   @Override
