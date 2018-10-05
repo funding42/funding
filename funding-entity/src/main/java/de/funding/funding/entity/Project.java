@@ -14,18 +14,14 @@ public class Project {
 	private LocalDateTime createdAt;
 	private LocalDateTime lastModified;
 	private Location location;
-	private double investmentGoal;
+	private Double investmentGoal;
 	private List<Slot> slots;
 	private List<Supporter> supporters;
 
 	public Project() {
 	}
 
-	public Project(final UUID uuid, final String title, final String teaser, final String description,
-								 final ProjectState state, final User creator, final LocalDateTime createdAt,
-								 final LocalDateTime lastModified, final Location location, final double investmentGoal,
-								 final List<Slot> slots, final List<Supporter> supporters) {
-		super();
+	public Project(final UUID uuid, final String title, final String teaser, final String description, final ProjectState state, final User creator, final LocalDateTime createdAt, final LocalDateTime lastModified, final Location location, final Double investmentGoal, final List<Slot> slots, final List<Supporter> supporters) {
 		this.uuid = uuid;
 		this.title = title;
 		this.teaser = teaser;
@@ -37,14 +33,6 @@ public class Project {
 		this.location = location;
 		this.investmentGoal = investmentGoal;
 		this.slots = slots;
-		this.supporters = supporters;
-	}
-
-	public List<Supporter> getSupporters() {
-		return supporters;
-	}
-
-	public void setSupporters(final List<Supporter> supporters) {
 		this.supporters = supporters;
 	}
 
@@ -120,11 +108,11 @@ public class Project {
 		this.location = location;
 	}
 
-	public double getInvestmentGoal() {
+	public Double getInvestmentGoal() {
 		return investmentGoal;
 	}
 
-	public void setInvestmentGoal(final double investmentGoal) {
+	public void setInvestmentGoal(final Double investmentGoal) {
 		this.investmentGoal = investmentGoal;
 	}
 
@@ -136,4 +124,11 @@ public class Project {
 		this.slots = slots;
 	}
 
+	public List<Supporter> getSupporters() {
+		return supporters;
+	}
+
+	public void setSupporters(final List<Supporter> supporters) {
+		this.supporters = supporters;
+	}
 }

@@ -1,6 +1,9 @@
 package de.funding.funding.entity;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
@@ -20,6 +23,10 @@ public class PersistentProject extends AbstractPersistentEntity {
   private ProjectState state;
 
   private PersistentUser creator;
+
+  private EmbeddableLocation location;
+
+  private Double fundingGoal;
 
   @Column(name = "title", nullable = false)
   public String getTitle() {
@@ -66,5 +73,27 @@ public class PersistentProject extends AbstractPersistentEntity {
 
   public void setCreator(final PersistentUser creator) {
     this.creator = creator;
+  }
+
+  @Embedded
+  @AttributeOverrides({ //
+      @AttributeOverride(name = "longitude", column = @Column(name = "project_lon")), //
+      @AttributeOverride(name = "latitude", column = @Column(name = "project_lan")) //
+  })
+  public EmbeddableLocation getLocation() {
+    return location;
+  }
+
+  public void setLocation(final EmbeddableLocation location) {
+    this.location = location;
+  }
+
+  @Column(name = "funding_goal")
+  public Double getFundingGoal() {
+    return fundingGoal;
+  }
+
+  public void setFundingGoal(final Double fundingGoal) {
+    this.fundingGoal = fundingGoal;
   }
 }
