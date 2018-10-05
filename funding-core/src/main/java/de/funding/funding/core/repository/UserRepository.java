@@ -1,16 +1,18 @@
 package de.funding.funding.core.repository;
 
-import de.funding.funding.entity.User;
-
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import de.funding.funding.entity.User;
+
 public interface UserRepository {
 
-  User getUser(UUID uuid);
+	void createUser(User user);
 
-  List<User> getUsers(Long offset, Long limit);
+	User getUser(UUID uuid);
 
-  URI getAvatarUri(UUID userUuid);
+	List<User> getUsers(Long offset, Long limit);
+
+	URI getAvatarUri(UUID userUuid);
 }
