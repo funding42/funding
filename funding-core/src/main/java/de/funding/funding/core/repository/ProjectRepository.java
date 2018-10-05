@@ -1,10 +1,13 @@
 package de.funding.funding.core.repository;
 
-import de.funding.funding.entity.Project;
-
 import java.util.UUID;
+
+import de.funding.funding.entity.Project;
 
 public interface ProjectRepository {
 
-  Project getProject(UUID uuid);
+	void create(Project project);
+
+	Project getProject(UUID uuid);
+
 }
