@@ -1,14 +1,17 @@
 package de.funding.funding.core.repository;
 
-import de.funding.funding.entity.Project;
 
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import de.funding.funding.entity.Project;
+
 public interface ProjectRepository {
 
   public enum SortBy {CreationDate, ModifiedDate, Trending, Popular}
+
+  void create(Project project);
 
   Project getProject(UUID uuid);
 
