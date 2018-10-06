@@ -22,6 +22,7 @@ public class VoteToPersistentVoteConverter implements Converter<Vote, Persistent
     result.setProject(projectConverter.convert(source.getProject()));
     result.setUser(userConverter.convert(source.getUser()));
     result.setUpvote(source.isUpvote());
+    result.setCreatedAt(source.getCreationDate());
     return result;
   }
 }

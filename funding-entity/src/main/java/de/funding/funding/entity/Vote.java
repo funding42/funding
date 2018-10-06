@@ -1,5 +1,6 @@
 package de.funding.funding.entity;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Vote {
@@ -11,6 +12,8 @@ public class Vote {
   private User user;
 
   private boolean upvote;
+
+  private LocalDateTime creationDate;
 
   public UUID getUuid() {
     return uuid;
@@ -42,5 +45,13 @@ public class Vote {
 
   public void setUpvote(final boolean upvote) {
     this.upvote = upvote;
+  }
+
+  public LocalDateTime getCreationDate() {
+    return creationDate;
+  }
+
+  public void setCreationDate(final LocalDateTime creationDate) {
+    this.creationDate = creationDate;
   }
 }

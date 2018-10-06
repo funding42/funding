@@ -33,6 +33,8 @@ public class PersistentProject extends AbstractPersistentEntity {
 
   private String imageMimetype;
 
+  private double popularity;
+
   @Column(name = "title", nullable = false)
   public String getTitle() {
     return title;
@@ -118,5 +120,14 @@ public class PersistentProject extends AbstractPersistentEntity {
 
   public void setImageMimetype(final String imageMimetype) {
     this.imageMimetype = imageMimetype;
+  }
+
+  @Column(name = "popularity", nullable = false)
+  public double getPopularity() {
+    return popularity;
+  }
+
+  public void setPopularity(final double popularity) {
+    this.popularity = popularity;
   }
 }

@@ -5,6 +5,7 @@ import de.funding.funding.entity.PersistentVote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -12,4 +13,6 @@ import java.util.UUID;
 public interface JpaVoteRepository extends JpaRepository<PersistentVote, UUID> {
 
   Set<PersistentVote> findAllByProject(PersistentProject project);
+
+  Set<PersistentVote> findByCreatedAtGreaterThan(LocalDateTime since);
 }

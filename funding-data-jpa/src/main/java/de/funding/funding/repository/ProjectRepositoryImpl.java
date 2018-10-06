@@ -75,6 +75,14 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
   }
 
+  @Override
+  public void cachePopularity(final Project projectUuid, final double popularity) {
+    delegator.findById(projectUuid.getUuid()).ifPresent(p -> {
+      p.setPopularity(popularity);
+      delegator.saveAndFlush(p);
+    });
+  }
+
   private Pageable getPageable(Long offset, Long limit, final SortBy sortBy, final Boolean asc) {
 
     offset = offset != null ? offset : 0;
@@ -91,7 +99,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
           fieldName = "lastModified";
           break;
         case Popular:
-          throw new UnsupportedOperationException("not yet implemented");
+          fieldName = "popularity";
+          break;
         case Trending:
           throw new UnsupportedOperationException("not yet implemented");
         default:

@@ -11,7 +11,10 @@ import de.funding.funding.entity.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class VoteRepositoryImpl implements VoteRepository {
@@ -45,6 +48,12 @@ public class VoteRepositoryImpl implements VoteRepository {
     final long upvotes = votes.stream().filter(PersistentVote::isUpvote).count();
     final long downvotes = votes.stream().filter(PersistentVote::isDownvote).count();
     return new DefaultSumProjection(upvotes, downvotes);
+  }
+
+  @Override
+  public Set<UUID> getProjectsVotedSince(final LocalDateTime since) {
+    final Set<PersistentVote> byCreatedAtGreaterThan = delegate.findByCreatedAtGreaterThan(since);
+    return byCreatedAtGreaterThan.stream().map(v -> v.getProject().getId()).collect(Collectors.toSet());
   }
 
   public class DefaultSumProjection implements SumProjection {

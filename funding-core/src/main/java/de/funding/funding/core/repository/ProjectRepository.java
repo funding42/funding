@@ -23,4 +23,6 @@ public interface ProjectRepository {
                               final SortBy sortBy, final Boolean asc);
 
   Image getProjectImage(UUID projectUUid);
+
+  void cachePopularity(Project projectUuid, double popularity);
 }

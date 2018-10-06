@@ -1,6 +1,8 @@
 package de.funding.funding;
 
+import de.funding.funding.core.repository.ProjectRepository;
 import de.funding.funding.core.repository.VoteRepository;
+import de.funding.funding.core.service.ProjectService;
 import de.funding.funding.core.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,6 +27,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
+@EnableScheduling
 public class FundingApplication {
 
   public static void main(String[] args) {
@@ -31,6 +36,9 @@ public class FundingApplication {
 
   @Autowired
   private VoteRepository voteRepository;
+
+  @Autowired
+  private ProjectRepository projectRepository;
 
   @Bean
   public Docket petApi() {
@@ -59,6 +67,16 @@ public class FundingApplication {
   @Bean
   public VoteService voteService() {
     return new VoteService(voteRepository);
+  }
+
+  @Bean
+  public ProjectService projectService() {
+    return new ProjectService(projectRepository, voteRepository);
+  }
+
+  @Scheduled(fixedDelay = 1000, initialDelay = 0)
+  public void recalculateScores() {
+    projectService().calculateScores();
   }
 
   @Configuration
