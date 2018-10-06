@@ -1,13 +1,5 @@
 package de.funding.funding.boot;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.javafaker.Faker;
 import com.google.common.collect.Lists;
 import de.funding.funding.core.boot.DataProvider;
@@ -21,7 +13,6 @@ import de.funding.funding.entity.ProjectState;
 import de.funding.funding.entity.Skill;
 import de.funding.funding.entity.User;
 import de.funding.funding.entity.UserType;
-import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +22,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
@@ -100,14 +92,14 @@ public class DemoDataProvider implements DataProvider {
 	}
 
 	private LocalDateTime getRandomTIme() {
-		final DataFactory dataFactory = new DataFactory();
-		return Instant.ofEpochMilli(dataFactory.getDateBetween(new Date(2017 - 1900, 5, 1), new Date()).getTime())
+		final Faker faker = new Faker(Locale.GERMAN);
+		return Instant.ofEpochMilli(faker.date().between(new Date(2017 - 1900, 5, 1), new Date()).getTime())
 						.atZone(ZoneId.systemDefault())
 						.toLocalDateTime();
 	}
 
 	private void initializeProjectData() {
-		final DataFactory dataFactory = new DataFactory();
+		final Faker faker = new Faker(Locale.GERMAN);
 		Random random = new Random();
 		for (int i = 0; i < PROJECT_COUNT; i++) {
 
@@ -115,9 +107,9 @@ public class DemoDataProvider implements DataProvider {
 
 			Project project = new Project(
 							UUID.randomUUID(),
-							dataFactory.getRandomText(20, 40),
-							dataFactory.getRandomText(50, 100),
-							dataFactory.getRandomText(200, 250),
+							faker.chuckNorris().fact(),
+							faker.gameOfThrones().quote(),
+							faker.lorem().paragraph(5),
 							getRandomProjectState(),
 							getRandomUser(),
 							getRandomTIme(),

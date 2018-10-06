@@ -55,7 +55,7 @@ public class PersistentProject extends AbstractPersistentEntity {
     this.teaser = teaser;
   }
 
-  @Column(name = "description", nullable = false)
+  @Column(name = "description", nullable = false, length = 999)
   public String getDescription() {
     return description;
   }
