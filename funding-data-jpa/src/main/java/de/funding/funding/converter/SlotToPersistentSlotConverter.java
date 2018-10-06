@@ -1,10 +1,11 @@
 package de.funding.funding.converter;
 
-import de.funding.funding.entity.PersistentSlot;
-import de.funding.funding.entity.Slot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+
+import de.funding.funding.entity.PersistentSlot;
+import de.funding.funding.entity.Slot;
 
 @Component
 public class SlotToPersistentSlotConverter implements Converter<Slot, PersistentSlot> {

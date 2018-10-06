@@ -1,6 +1,7 @@
 package de.funding.funding.boot;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import com.google.common.collect.Lists;
 import de.funding.funding.core.boot.DataProvider;
 import de.funding.funding.core.repository.ProjectRepository;
 import de.funding.funding.core.repository.SkillRepository;
+import de.funding.funding.core.repository.SlotRepository;
 import de.funding.funding.core.repository.UserRepository;
 import de.funding.funding.entity.Location;
 import de.funding.funding.entity.Project;
@@ -40,28 +42,83 @@ public class DemoDataProvider implements DataProvider {
 	@Autowired
 	private SkillRepository skillRepo;
 
-	@Override
-	public void load() {
-		initializeSkillsData();
-		initializeUserData();
-		// initializeProjectData();
+	@Autowired
+	private SlotRepository slotRepo;
+
+	private List<Slot> createRandomSlots(final List<Supporter> supporters) {
+		final ArrayList<Slot> slots = Lists.newArrayList();
+		final Random random = new Random();
+		for (int i = 0; i < random.nextInt(5); i++) {
+			slotRepo.add(new Slot(UUID.randomUUID(), supporters.get(random.nextInt(supporters.size())),
+					getRandomSkills().get(0)));
+		}
+		for (int i = 0; i < random.nextInt(5); i++) {
+			slotRepo.add(new Slot(UUID.randomUUID(), null, getRandomSkills().get(0)));
+		}
+
+		return slots;
+	}
+
+	private List<Supporter> createRandomSupporters() {
+		// TODO SupporterRepo
+
+		return Lists.newArrayList();
+	}
+
+	private double getRandomInvestmentGoal() {
+		// TODO Sinnvolle goals?
+		final Random random = new Random();
+		return random.nextDouble();
+	}
+
+	private Location getRandomLocation() {
+		// TODO Random
+
+		return new Location(0.0, 0.0);
+	}
+
+	private ProjectState getRandomProjectState() {
+		final Random random = new Random();
+		return ProjectState.values()[random.nextInt(ProjectState.values().length)];
+	}
+
+	private List<Skill> getRandomSkills() {
+		final List<Skill> allSkills = skillRepo.findAll();
+		final Random random = new Random();
+		final List<Skill> randomSkills = Lists.newArrayList();
+		for (int i = 0; i < random.nextInt(5); i++) {
+			randomSkills.add(allSkills.get(random.nextInt(allSkills.size())));
+		}
+		return randomSkills;
+	}
+
+	private User getRandomUser() {
+		final Random random = new Random();
+		final Integer randomOffset = random.nextInt(USER_COUNT);
+		return userRepo.getUsers(randomOffset.longValue(), USER_COUNT.longValue()).get(0);
+	}
+
+	private UserType getRandomUserType() {
+		final Random random = new Random();
+		return UserType.values()[random.nextInt(UserType.values().length)];
+	}
+
+	private void initializeProjectData() {
+		final DataFactory dataFactory = new DataFactory();
+		for (int i = 0; i < PROJECT_COUNT; i++) {
+			final List<Supporter> randomSupporters = createRandomSupporters();
+			final Project project = new Project(UUID.randomUUID(), dataFactory.getBusinessName(),
+					dataFactory.getRandomText(50), dataFactory.getRandomText(250), getRandomProjectState(),
+					getRandomUser(), LocalDateTime.now(), LocalDateTime.now(), getRandomLocation(),
+					getRandomInvestmentGoal(), createRandomSlots(randomSupporters), randomSupporters);
+			projectRepo.create(project);
+		}
 	}
 
 	private void initializeSkillsData() {
 		final DataFactory dataFactory = new DataFactory();
 		for (int i = 0; i < SKILL_COUNT; i++) {
 			skillRepo.add(new Skill(UUID.randomUUID(), dataFactory.getCity(), dataFactory.getRandomWord()));
-		}
-	}
-
-	private void initializeProjectData() {
-		final DataFactory dataFactory = new DataFactory();
-		for (int i = 0; i < PROJECT_COUNT; i++) {
-			final Project project = new Project(UUID.randomUUID(), dataFactory.getBusinessName(),
-					dataFactory.getRandomText(50), dataFactory.getRandomText(250), getRandomProjectState(),
-					getRandomUser(), LocalDateTime.now(), LocalDateTime.now(), getRandomLocation(),
-					getRandomInvestmentGoal(), getRandomSlots(), getRandomSupporters());
-			projectRepo.create(project);
 		}
 	}
 
@@ -75,53 +132,10 @@ public class DemoDataProvider implements DataProvider {
 		}
 	}
 
-	private List<Supporter> getRandomSupporters() {
-		// TODO SupporterRepo
-
-		return Lists.newArrayList();
-	}
-
-	private List<Slot> getRandomSlots() {
-		// TODO SlotRepo
-
-		return Lists.newArrayList();
-	}
-
-	private double getRandomInvestmentGoal() {
-		// TODO Sinnvolle goals?
-
-		return Math.random();
-	}
-
-	private Location getRandomLocation() {
-		// TODO Random
-
-		return new Location(0.0, 0.0);
-	}
-
-	private User getRandomUser() {
-		final Random random = new Random();
-		final Integer randomOffset = random.nextInt(USER_COUNT);
-		return userRepo.getUsers(randomOffset.longValue(), USER_COUNT.longValue()).get(0);
-	}
-
-	private ProjectState getRandomProjectState() {
-		final Random random = new Random();
-		return ProjectState.values()[random.nextInt(ProjectState.values().length)];
-	}
-
-	private UserType getRandomUserType() {
-		final Random random = new Random();
-		return UserType.values()[random.nextInt(UserType.values().length)];
-	}
-
-	private List<Skill> getRandomSkills() {
-		final List<Skill> allSkills = skillRepo.findAll();
-		final Random random = new Random();
-		final List<Skill> randomSkills = Lists.newArrayList();
-		for (int i = 0; i < random.nextInt(5); i++) {
-			randomSkills.add(allSkills.get(random.nextInt(allSkills.size())));
-		}
-		return randomSkills;
+	@Override
+	public void load() {
+		initializeSkillsData();
+		initializeUserData();
+		// initializeProjectData();
 	}
 }
