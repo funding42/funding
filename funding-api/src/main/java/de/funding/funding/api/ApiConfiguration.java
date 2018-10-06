@@ -6,6 +6,7 @@ import de.funding.funding.api.converter.ProjectToProjectListDtoConverter;
 import de.funding.funding.api.converter.SlotToSlotDtoConverter;
 import de.funding.funding.api.converter.SupporterToSupporterDtoConverter;
 import de.funding.funding.api.converter.UserToUserDtoConverter;
+import de.funding.funding.api.converter.UserToUserOverviewDtoConverter;
 import de.funding.funding.api.converter.UserTypeToTypeDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,7 @@ public class ApiConfiguration {
     defaultConversionService.addConverter(new SupporterToSupporterDtoConverter(defaultConversionService));
     defaultConversionService.addConverter(new UserToUserDtoConverter(defaultConversionService));
     defaultConversionService.addConverter(new UserTypeToTypeDtoConverter());
+    defaultConversionService.addConverter(new UserToUserOverviewDtoConverter(defaultConversionService));
   }
 
 }

@@ -1,31 +1,36 @@
 package de.funding.funding.boot;
 
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-
-import org.fluttercode.datafactory.impl.DataFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.google.common.collect.Lists;
-
 import de.funding.funding.core.boot.DataProvider;
 import de.funding.funding.core.repository.ProjectRepository;
 import de.funding.funding.core.repository.SkillRepository;
 import de.funding.funding.core.repository.SlotRepository;
 import de.funding.funding.core.repository.SupporterRepository;
 import de.funding.funding.core.repository.UserRepository;
+import de.funding.funding.entity.Project;
 import de.funding.funding.entity.ProjectState;
 import de.funding.funding.entity.Skill;
 import de.funding.funding.entity.User;
 import de.funding.funding.entity.UserType;
+import org.fluttercode.datafactory.impl.DataFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 @Service
 public class DemoDataProvider implements DataProvider {
 
 	private static final Integer SKILL_COUNT = 10;
 	private static final Integer USER_COUNT = 50;
+	public static final Integer PROJECT_COUNT = 50;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -85,9 +90,42 @@ public class DemoDataProvider implements DataProvider {
 		}
 	}
 
+	private LocalDateTime getRandomTIme() {
+		final DataFactory dataFactory = new DataFactory();
+		return Instant.ofEpochMilli(dataFactory.getDateBetween(new Date(2017 - 1900, 5, 1), new Date()).getTime())
+						.atZone(ZoneId.systemDefault())
+						.toLocalDateTime();
+	}
+
+	private void initializeProjectData() {
+		final DataFactory dataFactory = new DataFactory();
+		Random random = new Random();
+		for (int i = 0; i < PROJECT_COUNT; i++) {
+
+			final double investmentGoal = random.nextDouble() * random.nextInt(50000);
+
+			Project project = new Project(
+							UUID.randomUUID(),
+							dataFactory.getRandomText(20, 40),
+							dataFactory.getRandomText(50, 100),
+							dataFactory.getRandomText(200, 250),
+							getRandomProjectState(),
+							getRandomUser(),
+							getRandomTIme(),
+							getRandomTIme(),
+							null,
+							investmentGoal,
+							new ArrayList<>(),
+							new ArrayList<>()
+			);
+			projectRepo.create(project);
+		}
+	}
+
 	@Override
 	public void load() {
 		initializeSkillsData();
 		initializeUserData();
+		initializeProjectData();
 	}
 }

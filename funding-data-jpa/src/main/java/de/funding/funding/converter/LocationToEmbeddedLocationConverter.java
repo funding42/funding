@@ -12,8 +12,10 @@ public class LocationToEmbeddedLocationConverter implements Converter<Location, 
 	@Override
 	public EmbeddableLocation convert(final Location source) {
 		final EmbeddableLocation target = new EmbeddableLocation();
-		target.setLatitude(source.getBreitengrad());
-		target.setLongitude(source.getLaengengrad());
+		if(source != null) {
+			target.setLatitude(source.getBreitengrad());
+			target.setLongitude(source.getLaengengrad());
+		}
 
 		return target;
 	}
