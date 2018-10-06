@@ -35,6 +35,8 @@ public class PersistentProject extends AbstractPersistentEntity {
 
   private double popularity;
 
+  private double trendingScore;
+
   @Column(name = "title", nullable = false)
   public String getTitle() {
     return title;
@@ -129,5 +131,14 @@ public class PersistentProject extends AbstractPersistentEntity {
 
   public void setPopularity(final double popularity) {
     this.popularity = popularity;
+  }
+
+  @Column(name = "trendingScore", nullable = false)
+  public double getTrendingScore() {
+    return trendingScore;
+  }
+
+  public void setTrendingScore(final double trendingScore) {
+    this.trendingScore = trendingScore;
   }
 }

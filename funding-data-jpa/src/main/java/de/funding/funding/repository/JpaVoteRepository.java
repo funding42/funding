@@ -14,5 +14,7 @@ public interface JpaVoteRepository extends JpaRepository<PersistentVote, UUID> {
 
   Set<PersistentVote> findAllByProject(PersistentProject project);
 
+  Set<PersistentVote> findAllByProjectAndCreatedAtGreaterThan(PersistentProject project, LocalDateTime since);
+
   Set<PersistentVote> findByCreatedAtGreaterThan(LocalDateTime since);
 }
