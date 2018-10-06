@@ -1,5 +1,14 @@
 package de.funding.funding.boot;
 
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.javafaker.Faker;
 import com.google.common.collect.Lists;
 import de.funding.funding.core.boot.DataProvider;
 import de.funding.funding.core.repository.ProjectRepository;
@@ -74,18 +83,18 @@ public class DemoDataProvider implements DataProvider {
 	}
 
 	private void initializeSkillsData() {
-		final DataFactory dataFactory = new DataFactory();
+		final Faker faker = new Faker(Locale.GERMAN);
 		for (int i = 0; i < SKILL_COUNT; i++) {
-			skillRepo.add(new Skill(UUID.randomUUID(), dataFactory.getCity(), dataFactory.getRandomWord()));
+			skillRepo.add(new Skill(UUID.randomUUID(), faker.beer().name(), faker.chuckNorris().fact()));
 		}
 	}
 
 	private void initializeUserData() {
-		final DataFactory dataFactory = new DataFactory();
+		final Faker faker = new Faker(Locale.GERMAN);
 		for (int i = 0; i < USER_COUNT; i++) {
 			final List<Skill> skills = getRandomSkills();
-			final User user = new User(UUID.randomUUID(), dataFactory.getFirstName(), dataFactory.getLastName(),
-					getRandomUserType(), skills, dataFactory.getRandomText(250));
+			final User user = new User(UUID.randomUUID(), faker.name().firstName(), faker.name().lastName(),
+					getRandomUserType(), skills, faker.chuckNorris().fact());
 			userRepo.createUser(user);
 		}
 	}
