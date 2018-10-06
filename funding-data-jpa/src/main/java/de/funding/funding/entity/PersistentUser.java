@@ -2,6 +2,7 @@ package de.funding.funding.entity;
 
 import static javax.persistence.EnumType.STRING;
 
+import java.sql.Blob;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,13 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-<<<<<<< HEAD
-=======
-import java.sql.Blob;
-import java.util.Set;
-
-import static javax.persistence.EnumType.STRING;
->>>>>>> Projektbilder/Useravatare
 
 @Entity
 @Table(name = "FUN_User")
