@@ -16,7 +16,7 @@ public class VoteService {
 
     long sum = sumProjection.getNumDownvotes() + sumProjection.getNumUpvotes();
 
-    return new VoteResult(sumProjection.getNumUpvotes() - sumProjection.getNumDownvotes(), (double) sumProjection.getNumUpvotes() / (double) sum);
+    return new VoteResult(sumProjection.getNumUpvotes() - sumProjection.getNumDownvotes(), sum != 0?(double) sumProjection.getNumUpvotes() / (double) sum:0);
   }
 
   public static class VoteResult {
