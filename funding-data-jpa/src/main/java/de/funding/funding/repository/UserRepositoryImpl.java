@@ -3,13 +3,17 @@ package de.funding.funding.repository;
 import de.funding.funding.converter.PersistentUserToUserConverter;
 import de.funding.funding.converter.UserToPersistentConverter;
 import de.funding.funding.core.repository.UserRepository;
+import de.funding.funding.entity.Image;
+import de.funding.funding.entity.PersistentProject;
 import de.funding.funding.entity.PersistentUser;
 import de.funding.funding.entity.User;
 import de.funding.funding.util.OffsetBasedPageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.net.URI;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -45,8 +49,38 @@ public class UserRepositoryImpl implements UserRepository {
   }
 
   @Override
-  public URI getAvatarUri(final UUID userUuid) {
-    throw new UnsupportedOperationException();
+  public Image getUserAvatar(final UUID userUuid) {
+    final PersistentUser persistentUser = delegator.findById(userUuid).orElse(null);
+    if (persistentUser != null && persistentUser.getAvatar() != null && persistentUser.getAvatarMimetype() != null) {
+      return new UserAvatar(persistentUser);
+    } else {
+      return null;
+    }
   }
+
+  private static class UserAvatar implements Image {
+
+    private final PersistentUser persistentUser;
+
+    public UserAvatar(final PersistentUser persistentUser) {
+      this.persistentUser = persistentUser;
+    }
+
+    @Override
+    public InputStream getStream() throws IOException {
+      try {
+        return persistentUser.getAvatar() != null? persistentUser.getAvatar().getBinaryStream():null;
+      } catch (SQLException e) {
+        throw new IOException(e);
+      }
+    }
+
+    @Override
+    public String getMimeType() {
+      return persistentUser.getAvatarMimetype();
+    }
+  }
+
+
 
 }

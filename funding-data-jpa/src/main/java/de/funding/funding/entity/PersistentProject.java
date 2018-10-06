@@ -9,6 +9,7 @@ import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.sql.Blob;
 
 @Entity
 @Table(name = "FUN_Project")
@@ -27,6 +28,10 @@ public class PersistentProject extends AbstractPersistentEntity {
   private EmbeddableLocation location;
 
   private Double fundingGoal;
+
+  private Blob image;
+
+  private String imageMimetype;
 
   @Column(name = "title", nullable = false)
   public String getTitle() {
@@ -95,5 +100,23 @@ public class PersistentProject extends AbstractPersistentEntity {
 
   public void setFundingGoal(final Double fundingGoal) {
     this.fundingGoal = fundingGoal;
+  }
+
+  @Column(name = "image")
+  public Blob getImage() {
+    return image;
+  }
+
+  public void setImage(final Blob image) {
+    this.image = image;
+  }
+
+  @Column(name = "image_mimetype")
+  public String getImageMimetype() {
+    return imageMimetype;
+  }
+
+  public void setImageMimetype(final String imageMimetype) {
+    this.imageMimetype = imageMimetype;
   }
 }
