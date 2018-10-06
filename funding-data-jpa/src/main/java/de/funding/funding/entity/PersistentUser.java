@@ -2,6 +2,7 @@ package de.funding.funding.entity;
 
 import static javax.persistence.EnumType.STRING;
 
+import java.sql.Blob;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -28,6 +29,10 @@ public class PersistentUser extends AbstractPersistentEntity {
 	private UserType type;
 
 	private Set<PersistentSkill> skills;
+
+  private Blob avatar;
+
+  private String avatarMimetype;
 
 	@Column(name = "first_name", nullable = false)
 	public String getFirstName() {
@@ -77,7 +82,25 @@ public class PersistentUser extends AbstractPersistentEntity {
 		return skills;
 	}
 
-	public void setSkills(final Set<PersistentSkill> skills) {
-		this.skills = skills;
-	}
+  public void setSkills(final Set<PersistentSkill> skills) {
+    this.skills = skills;
+  }
+
+  @Column(name = "avatar")
+  public Blob getAvatar() {
+    return avatar;
+  }
+
+  public void setAvatar(final Blob image) {
+    this.avatar = image;
+  }
+
+  @Column(name = "avatar_mimetype")
+  public String getAvatarMimetype() {
+    return avatarMimetype;
+  }
+
+  public void setAvatarMimetype(final String imageMimetype) {
+    this.avatarMimetype = imageMimetype;
+  }
 }

@@ -3,6 +3,7 @@ package de.funding.funding.repository;
 import de.funding.funding.converter.PersistentProjectToProjectConverter;
 import de.funding.funding.converter.ProjectToPersistentProjectConverter;
 import de.funding.funding.core.repository.ProjectRepository;
+import de.funding.funding.entity.Image;
 import de.funding.funding.entity.PersistentProject;
 import de.funding.funding.entity.Project;
 import de.funding.funding.util.OffsetBasedPageRequest;
@@ -11,7 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +34,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
   @Override
   public void create(final Project project) {
     final PersistentProject persistentProject =
-        projectToPersistentProjectConverter.convert(project);
+            projectToPersistentProjectConverter.convert(project);
     delegator.save(persistentProject);
   }
 
@@ -41,28 +45,34 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
   @Override
   public List<Project> getProjects(final Long offset, final Long limit, final SortBy sortBy,
-      final Boolean asc) {
+                                   final Boolean asc) {
 
     Pageable pageable = getPageable(offset, limit, sortBy, asc);
 
     return delegator.findAll(pageable).map(persistentProjectToProjectConverter::convert)
-        .getContent();
-  }
-
-  @Override
-  public URI getTeaserPictureUri(final UUID projectId) {
-    return null;
+            .getContent();
   }
 
   @Override
   public List<Project> searchByTitle(final String title, final Long offset, final Long limit,
-      final SortBy sortBy, final Boolean asc) {
+                                     final SortBy sortBy, final Boolean asc) {
     Pageable pageable = getPageable(offset, limit, sortBy, asc);
 
     String titleSearch = "%" + title + "%";
 
     return delegator.findAllByTitleLike(titleSearch, pageable)
-        .map(persistentProjectToProjectConverter::convert).getContent();
+            .map(persistentProjectToProjectConverter::convert).getContent();
+  }
+
+  @Override
+  public Image getProjectImage(final UUID projectUUid) {
+    final PersistentProject persistentProject = delegator
+            .findById(projectUUid).orElse(null);
+    if (persistentProject != null && persistentProject.getImage() != null && persistentProject.getImageMimetype() != null) {
+      return new ProjectImage(persistentProject);
+    } else {
+      return null;
+    }
   }
 
   private Pageable getPageable(Long offset, Long limit, final SortBy sortBy, final Boolean asc) {
@@ -88,13 +98,36 @@ public class ProjectRepositoryImpl implements ProjectRepository {
           throw new UnsupportedOperationException("unknown sortby: " + sortBy);
       }
       Sort sort =
-          new Sort(asc == null || asc ? Sort.Direction.ASC : Sort.Direction.DESC, fieldName);
+              new Sort(asc == null || asc ? Sort.Direction.ASC : Sort.Direction.DESC, fieldName);
       pageable = new OffsetBasedPageRequest(offset, limit.intValue(), sort);
     } else {
       pageable = new OffsetBasedPageRequest(offset, limit.intValue());
     }
 
     return pageable;
+  }
+
+  private static class ProjectImage implements Image {
+
+    private final PersistentProject persistentProject;
+
+    public ProjectImage(final PersistentProject persistentProject) {
+      this.persistentProject = persistentProject;
+    }
+
+    @Override
+    public InputStream getStream() throws IOException {
+      try {
+        return persistentProject.getImage() != null?persistentProject.getImage().getBinaryStream():null;
+      } catch (SQLException e) {
+        throw new IOException(e);
+      }
+    }
+
+    @Override
+    public String getMimeType() {
+      return persistentProject.getImageMimetype();
+    }
   }
 
 }

@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import de.funding.funding.entity.Image;
 import de.funding.funding.entity.User;
 
 public interface UserRepository {
@@ -14,5 +15,5 @@ public interface UserRepository {
 
 	List<User> getUsers(Long offset, Long limit);
 
-	URI getAvatarUri(UUID userUuid);
+	Image getUserAvatar(UUID projectUUid);
 }
