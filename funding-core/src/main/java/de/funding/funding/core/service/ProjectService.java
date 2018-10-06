@@ -4,6 +4,7 @@ import de.funding.funding.core.repository.ProjectRepository;
 import de.funding.funding.core.repository.VoteRepository;
 import de.funding.funding.entity.Project;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ProjectService {
@@ -22,6 +23,8 @@ public class ProjectService {
 
     long offset = 0;
 
+    final LocalDateTime lastHour = LocalDateTime.now().minusHours(1);
+
     List<Project> projects;
     do {
       projects = projectRepository.getProjects(offset, offset + PAGE_SIZE, null, null);
@@ -29,6 +32,10 @@ public class ProjectService {
         final VoteRepository.SumProjection sumProjection = voteRepository.countVotes(project);
         final long popularity = sumProjection.getNumUpvotes() - sumProjection.getNumDownvotes();
         projectRepository.cachePopularity(project, popularity);
+
+        final VoteRepository.SumProjection trendingSum = voteRepository.countVotesSince(project, lastHour);
+        final long trendingScore = trendingSum.getNumUpvotes() - trendingSum.getNumDownvotes();
+        projectRepository.cacheTrendingScore(project, trendingScore);
       }
     } while (!projects.isEmpty());
   }

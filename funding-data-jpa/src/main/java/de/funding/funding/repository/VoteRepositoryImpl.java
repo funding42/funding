@@ -51,6 +51,16 @@ public class VoteRepositoryImpl implements VoteRepository {
   }
 
   @Override
+  public SumProjection countVotesSince(final Project project, final LocalDateTime since) {
+    final PersistentProject persistentProject =
+            projectRepository.findById(project.getUuid()).orElse(null);
+    final Set<PersistentVote> votes = delegate.findAllByProjectAndCreatedAtGreaterThan(persistentProject, since);
+    final long upvotes = votes.stream().filter(PersistentVote::isUpvote).count();
+    final long downvotes = votes.stream().filter(PersistentVote::isDownvote).count();
+    return new DefaultSumProjection(upvotes, downvotes);
+  }
+
+  @Override
   public Set<UUID> getProjectsVotedSince(final LocalDateTime since) {
     final Set<PersistentVote> byCreatedAtGreaterThan = delegate.findByCreatedAtGreaterThan(since);
     return byCreatedAtGreaterThan.stream().map(v -> v.getProject().getId()).collect(Collectors.toSet());

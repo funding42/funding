@@ -83,6 +83,14 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     });
   }
 
+  @Override
+  public void cacheTrendingScore(final Project projectUuid, final double trendingScore) {
+    delegator.findById(projectUuid.getUuid()).ifPresent(p -> {
+      p.setTrendingScore(trendingScore);
+      delegator.saveAndFlush(p);
+    });
+  }
+
   private Pageable getPageable(Long offset, Long limit, final SortBy sortBy, final Boolean asc) {
 
     offset = offset != null ? offset : 0;
@@ -102,7 +110,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
           fieldName = "popularity";
           break;
         case Trending:
-          throw new UnsupportedOperationException("not yet implemented");
+          fieldName = "trendingScore";
+          break;
         default:
           throw new UnsupportedOperationException("unknown sortby: " + sortBy);
       }

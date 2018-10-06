@@ -13,6 +13,8 @@ public interface VoteRepository {
 
   SumProjection countVotes(Project project);
 
+  SumProjection countVotesSince(Project project, LocalDateTime since);
+
   Set<UUID> getProjectsVotedSince(LocalDateTime since);
 
   interface SumProjection {

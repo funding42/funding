@@ -25,4 +25,6 @@ public interface ProjectRepository {
   Image getProjectImage(UUID projectUUid);
 
   void cachePopularity(Project projectUuid, double popularity);
+
+  void cacheTrendingScore(Project project, double trendingScore);
 }
